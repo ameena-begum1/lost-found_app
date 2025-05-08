@@ -64,44 +64,13 @@ class _SigninScreenState extends State<SigninScreen> {
               const SizedBox(height: 20),
               const Center(
                 child: Text(
-                  "Welcome to ChatterAI",
+                  "Welcome to Lost&Found",
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF007C91), // teal-blue
                   ),
                 ),
-              ),
-              const SizedBox(height: 30),
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton.icon(
-                  onPressed: () {},
-                  icon: Image.asset('assets/google_icon.png', height: 24),
-                  label: const Text(
-                    "Sign in with Google",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    backgroundColor: Colors.white,
-                    side: const BorderSide(color: Colors.black12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 25),
-              Row(
-                children: const [
-                  Expanded(child: Divider(thickness: 1)),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text("or"),
-                  ),
-                  Expanded(child: Divider(thickness: 1)),
-                ],
               ),
               const SizedBox(height: 25),
               TextField(

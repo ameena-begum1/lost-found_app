@@ -82,7 +82,7 @@ class _SignUpScreenState extends State<SignupScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(color: Color(0xFFFFF3E4)),
-        backgroundColor: const Color(0xFF9B5DE5),
+        backgroundColor:  Color(0xFF007C91),
         elevation: 0,
         title: Center(
           child: Column(
@@ -115,7 +115,7 @@ class _SignUpScreenState extends State<SignupScreen> {
               children: [
                 const SizedBox(height: 20),
                 Text(
-                  "Join ChatterAI and start the conversation!",
+                  "Join Lost&Found and start the conversation!",
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     color: Colors.grey.shade700,
@@ -155,7 +155,7 @@ class _SignUpScreenState extends State<SignupScreen> {
                   child: ElevatedButton(
                     onPressed: _signUp,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF9B5DE5),
+                      backgroundColor:  Color(0xFF007C91),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -188,7 +188,7 @@ class _SignUpScreenState extends State<SignupScreen> {
                       child: const Text(
                         'Login',
                         style: TextStyle(
-                          color: Color(0xFF9B5DE5),
+                          color:  Color(0xFF007C91),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -212,8 +212,8 @@ class _SignUpScreenState extends State<SignupScreen> {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: Color(0xFF9B5DE5)),
-        prefixIcon: Icon(icon, color: Color(0xFF9B5DE5)),
+        labelStyle: const TextStyle(color:  Color(0xFF007C91)),
+        prefixIcon: Icon(icon, color: Color(0xFF007C91)),
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -232,8 +232,8 @@ class _SignUpScreenState extends State<SignupScreen> {
       obscureText: obscureText,
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: Color(0xFF9B5DE5)),
-        prefixIcon: const Icon(Icons.lock, color: Color(0xFF9B5DE5)),
+        labelStyle: const TextStyle(color:  Color(0xFF007C91)),
+        prefixIcon: const Icon(Icons.lock, color:  Color(0xFF007C91)),
         suffixIcon: IconButton(
           icon: Icon(obscureText ? Icons.visibility_off : Icons.visibility),
           onPressed: toggle,
