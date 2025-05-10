@@ -55,7 +55,7 @@ XFile? file = await imagePicker.pickImage(source: source);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Profile'),
+        title: const Text('User Profile'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),

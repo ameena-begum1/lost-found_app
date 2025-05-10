@@ -37,9 +37,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF3E4),
+      backgroundColor: const Color(0xFFE0F7F1),
       appBar: AppBar(
-        backgroundColor:  Color(0xFF007C91),
+        backgroundColor:  const Color(0xFF00BFA6),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFFFF3E4)),
@@ -72,8 +72,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
-                  labelStyle: const TextStyle(color:  Color(0xFF007C91)),
-                  prefixIcon: const Icon(Icons.email, color:  Color(0xFF007C91)),
+                  labelStyle: const TextStyle(color:   Color(0xFF00BFA6)),
+                  prefixIcon: const Icon(Icons.email, color:   Color(0xFF00BFA6)),
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
@@ -87,7 +87,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 child: ElevatedButton(
                   onPressed: _handleResetPassword,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:  Color(0xFF007C91),
+                    backgroundColor:  const Color(0xFF00BFA6),
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
