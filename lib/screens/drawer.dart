@@ -13,101 +13,167 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
-  final FetchUserProfile _profile= FetchUserProfile();
+  final FetchUserProfile _profile = FetchUserProfile();
 
   @override
   Widget build(BuildContext context) {
     final User user = _profile.getCurrentUser()!;
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: StreamBuilder<DocumentSnapshot>(
-        stream: _profile.getUserProfileStream(user.uid),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          color: const Color(0xFF007C91),
+          padding: const EdgeInsets.only(
+            top: 50,
+            left: 20,
+            bottom: 60,
+            right: 16,
+          ),
+          child: StreamBuilder<DocumentSnapshot>(
+            stream: _profile.getUserProfileStream(user.uid),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(color: Colors.white),
+                );
+              }
 
-          var profileData = snapshot.data?.data() as Map<String, dynamic>?;
-          bool hasProfileData = profileData != null && profileData.isNotEmpty;
+              var profileData = snapshot.data?.data() as Map<String, dynamic>?;
+              bool hasProfileData =
+                  profileData != null && profileData.isNotEmpty;
 
-          return Column(
-            children: <Widget>[
-              const SizedBox(height: 80),
-              Center(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const EditProfile()));
-                  },
-                  child: FutureBuilder(
-                    future: precacheImage(
-                      NetworkImage(profileData?['ProfileImageUrl'] ?? ''),
-                      context,
-                      onError: (error, stackTrace) {},
-                    ),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done &&
-                          profileData != null &&
-                          profileData['ProfileImageUrl'] != null &&
-                          profileData['ProfileImageUrl'].toString().isNotEmpty) {
-                        return CircleAvatar(
-                          radius: 64,
-                          backgroundImage: NetworkImage(profileData['ProfileImageUrl']),
-                        );
-                      } else if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircleAvatar(
-                          radius: 64,
-                          child: CircularProgressIndicator(color: Colors.white),
-                          backgroundColor: Colors.grey,
-                        );
-                      } else {
-                        return const CircleAvatar(
-                          radius: 64,
-                          child: Icon(Icons.person, size: 64),
-                          backgroundColor: Colors.grey,
-                        );
-                      }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const EditProfile()),
+                      );
                     },
+                    child: FutureBuilder(
+                      future: precacheImage(
+                        NetworkImage(profileData?['ProfileImageUrl'] ?? ''),
+                        context,
+                        onError: (_, __) {},
+                      ),
+                      builder: (context, snap) {
+                        if (snap.connectionState == ConnectionState.done &&
+                            profileData?['ProfileImageUrl']?.isNotEmpty ==
+                                true) {
+                          return CircleAvatar(
+                            radius: 52,
+                            backgroundImage: NetworkImage(
+                              profileData!['ProfileImageUrl'],
+                            ),
+                          );
+                        } else if (snap.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircleAvatar(
+                            radius: 32,
+                            backgroundColor: Colors.grey,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          );
+                        } else {
+                          return const CircleAvatar(
+                            radius: 32,
+                            backgroundColor: Colors.grey,
+                            child: Icon(
+                              Icons.person,
+                              size: 32,
+                              color: Colors.white,
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
+                  const SizedBox(height: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        hasProfileData ? profileData!['Name'] : 'Unknown',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        hasProfileData
+                            ? "${profileData!['Branch']} | ${profileData['Year']} | ${profileData['Roll no.']}"
+                            : 'Not Available',
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+        Expanded(
+          child: Container(
+            color: Colors.white,
+            child: ListView(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.list_alt_outlined),
+                  title: const Text('My Posted Items'),
+                  onTap:
+                      () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const UserList()),
+                      ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                hasProfileData ? profileData['Name'] : 'Unknown',
-                style: const TextStyle(color: Colors.white, fontSize: 18),
-              ),
-              Text(
-                hasProfileData
-                    ? "${profileData['Branch']} | ${profileData['Year']} | ${profileData['Roll no.']}"
-                    : 'Not Available',
-                style: const TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              const SizedBox(height: 50),
-              ListTile(
-                title: const Text('My Posted Items'),
-                textColor: Colors.white,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const UserList()));
-                },
-              ),
-              const SizedBox(height: 10),
-              ListTile(
-                title: const Text('About Developers'),
-                textColor: Colors.white,
-                onTap: () {},
-              ),
-              const SizedBox(height: 50),
-              ElevatedButton(
-                onPressed: () async {
-                  await _profile.signOut();
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SigninScreen()));
-                },
-                child: const Text('Logout'),
-              ),
-            ],
-          );
-        },
-      ),
+                ListTile(
+                  leading: const Icon(Icons.notifications_none),
+                  title: const Text('Notifications'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(Icons.settings_outlined),
+                  title: const Text('Settings'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(Icons.group_add_outlined),
+                  title: const Text('Invite Friends'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(Icons.info_outline),
+                  title: const Text('About Developers'),
+                  onTap: () {},
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const Icon(Icons.logout),
+                  title: const Text('Logout'),
+                  onTap: () async {
+                    await _profile.signOut();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => SigninScreen()),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

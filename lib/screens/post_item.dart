@@ -1,5 +1,6 @@
 //post item screen
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lost_n_found/backend_services/upload_item_image.dart';
 import 'package:lost_n_found/backend_services/store_item_details.dart';
 
@@ -15,6 +16,8 @@ class PostItem extends StatefulWidget {
 class _PostItemState extends State<PostItem> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _discriptionController = TextEditingController();
+  final TextEditingController _mobilenoController = TextEditingController();
+  final TextEditingController _location = TextEditingController();
   String imageUrl = '';
 
   void updateImageUrl(String url) {
@@ -25,6 +28,17 @@ class _PostItemState extends State<PostItem> {
 
   final List<String> list = ['Status', 'Lost', 'Found'];
   String? selectedStatus = 'Status';
+  final List<String> categoryList = [
+    'Select Category',
+    'Bag',
+    'Bottle',
+    'Watch',
+    'Goggles',
+    'Mobile',
+    'Keys',
+    'Others',
+  ];
+  String? selectedCategory = 'Select Category';
 
   Widget statusMenu() {
     return DropdownMenu<String>(
@@ -36,6 +50,21 @@ class _PostItemState extends State<PostItem> {
       },
       dropdownMenuEntries:
           list.map<DropdownMenuEntry<String>>((String value) {
+            return DropdownMenuEntry(value: value, label: value);
+          }).toList(),
+    );
+  }
+
+  Widget categoryMenu() {
+    return DropdownMenu<String>(
+      initialSelection: categoryList.first,
+      onSelected: (String? value) {
+        setState(() {
+          selectedCategory = value ?? 'Select Category';
+        });
+      },
+      dropdownMenuEntries:
+          categoryList.map<DropdownMenuEntry<String>>((String value) {
             return DropdownMenuEntry(value: value, label: value);
           }).toList(),
     );
@@ -61,6 +90,20 @@ class _PostItemState extends State<PostItem> {
                 ),
               ),
               const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 3, // 1.5 * 2 #chamka
+                    child: categoryMenu(),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    flex: 2, // 1 * 2
+                    child: statusMenu(),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
               TextField(
                 controller: _discriptionController,
                 decoration: const InputDecoration(
@@ -70,19 +113,35 @@ class _PostItemState extends State<PostItem> {
                 maxLines: 3,
               ),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(child: statusMenu()),
-                  const SizedBox(width: 16),
-                ],
+              TextField(
+                controller: _location,
+                decoration: const InputDecoration(
+                  labelText: "Location",
+                  hintText: "eg: near non-veg canteen",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: _mobilenoController,
+                keyboardType: TextInputType.number,
+                maxLength: 10,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                decoration: const InputDecoration(
+                  labelText: "Mobile No. to Contact",
+                  border: OutlineInputBorder(),
+                ),
               ),
               const SizedBox(height: 20),
               Center(
                 child: StoreData(
                   titleController: _titleController,
                   status: selectedStatus!,
+                  category: selectedCategory!,
                   discriptionController: _discriptionController,
                   imageUrl: imageUrl,
+                  mobilenoController: _mobilenoController,
+                  location: _location,
                 ),
               ),
             ],

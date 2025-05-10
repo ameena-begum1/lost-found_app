@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lost_n_found/backend_services/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'signin_screen.dart'; 
+import 'signin_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -36,7 +38,7 @@ class _SignUpScreenState extends State<SignupScreen> {
       return;
     }
 
-    if (!email.contains('@')) { 
+    if (!email.contains('@')) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Enter a valid email address')));
@@ -57,17 +59,34 @@ class _SignUpScreenState extends State<SignupScreen> {
       return;
     }
 
-    final auth = SignUpAuth(); 
+    final auth = SignUpAuth();
     final result = await auth.signUpWithEmail(email: email, password: password);
 
     if (result == null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Account created successfully')));
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => SigninScreen()),
-      );
+      try {
+        final user = FirebaseAuth.instance.currentUser;
+
+        // Create a new document in the Firestore 'users' collection
+        await FirebaseFirestore.instance.collection('users').doc(user?.uid).set(
+          {
+            'Name': fullName,
+            'email': email,
+            'createdAt': FieldValue.serverTimestamp(),
+          },
+        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Account created successfully')));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => SigninScreen()),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Failed to store user data')));
+        print('Error storing user data: $e');
+      }
     } else {
       ScaffoldMessenger.of(
         context,
@@ -78,11 +97,11 @@ class _SignUpScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF3E4),
+      backgroundColor: const Color(0xFFE0F7F1),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(color: Color(0xFFFFF3E4)),
-        backgroundColor:  Color(0xFF007C91),
+        backgroundColor: const Color(0xFF00BFA6),
         elevation: 0,
         title: Center(
           child: Column(
@@ -155,7 +174,7 @@ class _SignUpScreenState extends State<SignupScreen> {
                   child: ElevatedButton(
                     onPressed: _signUp,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:  Color(0xFF007C91),
+                      backgroundColor: const Color(0xFF00BFA6),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -188,7 +207,7 @@ class _SignUpScreenState extends State<SignupScreen> {
                       child: const Text(
                         'Login',
                         style: TextStyle(
-                          color:  Color(0xFF007C91),
+                          color: Color(0xFF007C91),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -212,8 +231,8 @@ class _SignUpScreenState extends State<SignupScreen> {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color:  Color(0xFF007C91)),
-        prefixIcon: Icon(icon, color: Color(0xFF007C91)),
+        labelStyle: const TextStyle(color: Color(0xFF00BFA6)),
+        prefixIcon: Icon(icon, color: const Color(0xFF00BFA6)),
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -232,8 +251,8 @@ class _SignUpScreenState extends State<SignupScreen> {
       obscureText: obscureText,
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color:  Color(0xFF007C91)),
-        prefixIcon: const Icon(Icons.lock, color:  Color(0xFF007C91)),
+        labelStyle: const TextStyle(color: Color(0xFF00BFA6)),
+        prefixIcon: const Icon(Icons.lock, color: Color(0xFF00BFA6)),
         suffixIcon: IconButton(
           icon: Icon(obscureText ? Icons.visibility_off : Icons.visibility),
           onPressed: toggle,

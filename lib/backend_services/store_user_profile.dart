@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:lost_n_found/screens/home_screen.dart';
 
 Future<String?> uploadProfileImage(Uint8List imageBytes) async {
   try {
@@ -78,6 +79,7 @@ class _StoreProfileState extends State<StoreProfile> {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(const SnackBar(content: Text('Profile saved.')));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Failed to upload image.')),
@@ -110,7 +112,7 @@ bool isFormFilled() {
         ? const CircularProgressIndicator() 
         : FilledButton(
           onPressed: isFormFilled() ? saveProfileDetails : null,
-          child: const Text('Save'),
+          child: const Text('Save Profile'),
         );
   }
 }
