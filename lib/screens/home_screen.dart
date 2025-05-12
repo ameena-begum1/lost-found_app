@@ -15,8 +15,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final FetchUserProfile _fetchUserProfile = FetchUserProfile();
+  final TextEditingController _searchController = TextEditingController();
+  String searchQuery = '';
 
-  bool isLostItems = true;
+  String statusFilter = 'All'; //default All
   String selectedCategory = 'All';
 
   final List<String> categories = [
@@ -120,6 +122,12 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Expanded(
                   child: TextField(
+                    controller: _searchController,
+                    onChanged: (value) {
+                      setState(() {
+                        searchQuery = value.trim().toLowerCase();
+                      });
+                    },
                     decoration: InputDecoration(
                       hintText: "Search item",
                       prefixIcon: const Icon(Icons.search),
@@ -163,42 +171,34 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () => setState(() => isLostItems = true),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: isLostItems ? Colors.teal : Colors.grey[300],
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 0,
-                ),
-                child: const Text("Lost Items"),
-              ),
-              const SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () => setState(() => isLostItems = false),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      !isLostItems ? Colors.teal : Colors.grey[300],
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 0,
-                ),
-                child: const Text("Found Items"),
-              ),
-            ],
+            children:
+                ['All', 'Lost', 'Found'].map((status) {
+                  final isSelected = statusFilter == status;
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: ElevatedButton(
+                      onPressed: () => setState(() => statusFilter = status),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            isSelected ? Colors.teal : Colors.grey[300],
+                        foregroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: Text(status),
+                    ),
+                  );
+                }).toList(),
           ),
-
           const SizedBox(height: 10),
           Expanded(
             child: ItemList(
-              statusFilter: isLostItems ? 'Lost' : 'Found',
+              statusFilter: statusFilter == 'All' ? null : statusFilter,
               categoryFilter:
                   selectedCategory == 'All' ? null : selectedCategory,
+              searchQuery: searchQuery,
             ),
           ),
           SizedBox(
