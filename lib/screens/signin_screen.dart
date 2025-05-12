@@ -2,7 +2,6 @@ import 'package:lost_n_found/backend_services/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:lost_n_found/screens/edit_profile.dart';
 import 'package:lost_n_found/screens/forget_password.dart';
-import 'package:lost_n_found/screens/home_screen.dart';
 import 'signup_screen.dart';
 
 class SigninScreen extends StatefulWidget {
@@ -39,21 +38,19 @@ class _SigninScreenState extends State<SigninScreen> {
       );
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => EditProfile(),
-        ),
+        MaterialPageRoute(builder: (context) => EditProfile()),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Incorrect login')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Incorrect login')));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFE0F7F1), 
+      backgroundColor: const Color(0xFFE0F7F1),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Center(
@@ -69,7 +66,7 @@ class _SigninScreenState extends State<SigninScreen> {
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF007C91), 
+                    color: Color(0xFF007C91),
                   ),
                 ),
               ),
@@ -136,7 +133,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 child: ElevatedButton(
                   onPressed: _login,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00BFA6), 
+                    backgroundColor: const Color(0xFF00BFA6),
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(

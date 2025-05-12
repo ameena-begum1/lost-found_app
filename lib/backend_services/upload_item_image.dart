@@ -8,9 +8,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:core';
 
 class UploadItemImage extends StatefulWidget {
-  const UploadItemImage({super.key, required this.onUploadImage});
+  const UploadItemImage({super.key, required this.onUploadImage,this.existingImageUrl});
 
   final Function(String) onUploadImage;
+   final String? existingImageUrl;
   @override
   State<UploadItemImage> createState() {
     return _UploadImageState();
@@ -18,6 +19,13 @@ class UploadItemImage extends StatefulWidget {
 }
 
 class _UploadImageState extends State<UploadItemImage> {
+
+     @override
+  void initState() {
+    super.initState();
+    imageUrl = widget.existingImageUrl ?? '';
+  }
+
   //1.using image_picker for picking image
   final ImagePicker img = ImagePicker();
   XFile? _image;

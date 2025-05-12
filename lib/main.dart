@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lost_n_found/screens/home_screen.dart';
@@ -16,8 +17,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner : false, 
-      // home: SigninScreen(),
-      home: HomeScreen()
+      home: AuthWrapper(),
     );
+  }
+}
+
+//logic to keep the user signed in after they logged in once 
+class AuthWrapper extends StatelessWidget {
+  const AuthWrapper({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      return HomeScreen();
+    } else {
+      return SigninScreen();
+    }
   }
 }

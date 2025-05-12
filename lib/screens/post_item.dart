@@ -5,7 +5,8 @@ import 'package:lost_n_found/backend_services/upload_item_image.dart';
 import 'package:lost_n_found/backend_services/store_item_details.dart';
 
 class PostItem extends StatefulWidget {
-  const PostItem({super.key});
+  const PostItem({super.key, this.existingItem});
+  final Map<String, dynamic>? existingItem; // new line
 
   @override
   State<PostItem> createState() {
@@ -26,6 +27,20 @@ class _PostItemState extends State<PostItem> {
     });
   }
 
+  @override
+  void initState() {
+    super.initState();
+    if (widget.existingItem != null) {
+      _titleController.text = widget.existingItem!['title'] ?? '';
+      _discriptionController.text = widget.existingItem!['discription'] ?? '';
+      _mobilenoController.text = widget.existingItem!['mobile_no'] ?? '';
+      _location.text = widget.existingItem!['location'] ?? '';
+      imageUrl = widget.existingItem!['image'] ?? '';
+      selectedStatus = widget.existingItem!['status'] ?? 'Status';
+      selectedCategory = widget.existingItem!['category'] ?? 'Select Category';
+    }
+  }
+
   final List<String> list = ['Status', 'Lost', 'Found'];
   String? selectedStatus = 'Status';
   final List<String> categoryList = [
@@ -42,7 +57,7 @@ class _PostItemState extends State<PostItem> {
 
   Widget statusMenu() {
     return DropdownMenu<String>(
-      initialSelection: list.first,
+      initialSelection: selectedStatus,
       onSelected: (String? value) {
         setState(() {
           selectedStatus = value ?? 'status';
@@ -57,7 +72,7 @@ class _PostItemState extends State<PostItem> {
 
   Widget categoryMenu() {
     return DropdownMenu<String>(
-      initialSelection: categoryList.first,
+      initialSelection: selectedCategory,
       onSelected: (String? value) {
         setState(() {
           selectedCategory = value ?? 'Select Category';
@@ -72,6 +87,10 @@ class _PostItemState extends State<PostItem> {
 
   @override
   Widget build(BuildContext context) {
+    print(
+      'imageeeeeeeeeeeeeeeeeeeeeee: ${widget.existingItem}',
+    );
+
     return Scaffold(
       appBar: AppBar(title: const Text("Post Item")),
       body: SingleChildScrollView(
@@ -80,7 +99,10 @@ class _PostItemState extends State<PostItem> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              UploadItemImage(onUploadImage: updateImageUrl),
+              UploadItemImage(
+                onUploadImage: updateImageUrl,
+                existingImageUrl: imageUrl,
+              ),
               const SizedBox(height: 20),
               TextField(
                 controller: _titleController,

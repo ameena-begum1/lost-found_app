@@ -8,9 +8,9 @@ BottomNavigationBar navBar(
   BuildContext context,
   GlobalKey<ScaffoldState> scaffoldKey,
 ) {
-  int _currentIndex = currentIndexNotifier.value;
+  int currentIndex = currentIndexNotifier.value;
   return BottomNavigationBar(
-    currentIndex: _currentIndex,
+    currentIndex: currentIndex,
     onTap: (index) {
       currentIndexNotifier.value = index;
       if (index == 0) {
