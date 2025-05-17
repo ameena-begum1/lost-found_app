@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lost_n_found/screens/maps.dart';
 import 'package:lost_n_found/screens/home_screen.dart';
 import 'package:lost_n_found/screens/post_item.dart';
 
@@ -23,7 +24,12 @@ BottomNavigationBar navBar(
           context,
           MaterialPageRoute(builder: (context) => const PostItem()),
         );
-      } else if (index == 2) {}
+      } else if (index == 2) {
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>  CollegeMapScreen()),
+        );
+      }
     },
     items: const [
       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
