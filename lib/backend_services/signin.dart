@@ -6,7 +6,7 @@ class SignInAuth {
   Future<String?> signInWithEmail(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      return null; //success
+      return null; 
     } on FirebaseAuthException catch (e) {
       return e.message; 
     } catch (e) {
