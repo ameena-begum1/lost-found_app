@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lost_n_found/screens/item_detail.dart';
-import 'package:lost_n_found/backend_services/item.dart';
+import 'package:lost_n_found/items/screens/item_detail.dart';
+import 'package:lost_n_found/items/backend_services/item.dart';
 
 class ItemList extends StatefulWidget {
   const ItemList({

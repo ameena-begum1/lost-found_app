@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lost_n_found/widgets/item_listview.dart';
-import 'package:lost_n_found/widgets/bottom_navbar.dart';
-import 'package:lost_n_found/screens/drawer.dart';
+import 'package:lost_n_found/items/widgets/item_listview.dart';
+import 'package:lost_n_found/items/widgets/bottom_navbar.dart';
+import 'package:lost_n_found/items/screens/drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:lost_n_found/backend_services/fetch_profile.dart';
+import 'package:lost_n_found/items/backend_services/fetch_profile.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -1,8 +1,8 @@
 //post item screen
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lost_n_found/backend_services/upload_item_image.dart';
-import 'package:lost_n_found/backend_services/store_item_details.dart';
+import 'package:lost_n_found/items/backend_services/upload_item_image.dart';
+import 'package:lost_n_found/items/backend_services/store_item_details.dart';
 
 class PostItem extends StatefulWidget {
   const PostItem({super.key, this.existingItem});

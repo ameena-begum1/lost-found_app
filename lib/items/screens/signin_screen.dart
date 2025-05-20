@@ -1,7 +1,7 @@
-import 'package:lost_n_found/backend_services/signin.dart';
+import 'package:lost_n_found/items/backend_services/signin.dart';
 import 'package:flutter/material.dart';
-import 'package:lost_n_found/screens/edit_profile.dart';
-import 'package:lost_n_found/screens/forget_password.dart';
+import 'package:lost_n_found/items/screens/edit_profile.dart';
+import 'package:lost_n_found/items/screens/forget_password.dart';
 import 'signup_screen.dart';
 
 class SigninScreen extends StatefulWidget {

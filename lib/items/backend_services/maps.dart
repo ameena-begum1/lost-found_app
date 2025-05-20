@@ -24,7 +24,7 @@ class MapService {
     }).toList();
   }
 
-  Future<Map<String, Marker>> getMarkersFromLocations(List<LocationData> locations) async {
+  Future<Map<String, Marker>> getMarkersFromLocations(List<LocationData> locations, {LocationData? highlight1, LocationData? highlight2}) async {
     final Map<String, Marker> markers = {};
     for (var i = 0; i < locations.length; i++) {
       final loc = locations[i];

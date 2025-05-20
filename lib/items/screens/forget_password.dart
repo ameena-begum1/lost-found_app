@@ -1,4 +1,4 @@
-import 'package:lost_n_found/backend_services/password_reset.dart';
+import 'package:lost_n_found/items/backend_services/password_reset.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

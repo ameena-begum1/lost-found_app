@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:lost_n_found/backend_services/fetch_profile.dart';
+import 'package:lost_n_found/items/backend_services/fetch_profile.dart';
 import 'edit_profile.dart';
 import 'signin_screen.dart';
 import 'myposted_items.dart';
@@ -98,7 +98,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        hasProfileData ? profileData!['Name'] : 'Unknown',
+                        hasProfileData ? profileData['Name'] : 'Unknown',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -108,7 +108,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       const SizedBox(height: 4),
                       Text(
                         hasProfileData
-                            ? "${profileData!['Branch']} | ${profileData['Year']} | ${profileData['Roll no.']}"
+                            ? "${profileData['Branch']} | ${profileData['Year']} | ${profileData['Roll no.']}"
                             : 'Not Available',
                         style: const TextStyle(
                           color: Colors.white70,
