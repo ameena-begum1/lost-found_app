@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
-import 'package:lost_n_found/backend_services/store_user_profile.dart';
+import 'package:lost_n_found/items/backend_services/store_user_profile.dart';
 import 'dart:core';
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lost_n_found/screens/maps.dart';
-import 'package:lost_n_found/screens/home_screen.dart';
-import 'package:lost_n_found/screens/post_item.dart';
+import 'package:lost_n_found/maps/screen/map_screen.dart';
+import 'package:lost_n_found/items/screens/home_screen.dart';
+import 'package:lost_n_found/items/screens/post_item.dart';
 
 ValueNotifier<int> currentIndexNotifier = ValueNotifier<int>(0);
 
@@ -27,7 +27,7 @@ BottomNavigationBar navBar(
       } else if (index == 2) {
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  CollegeMapScreen()),
+          MaterialPageRoute(builder: (context) =>  MapScreen()),
         );
       }
     },

@@ -1,8 +1,8 @@
 //my posted items screen
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:lost_n_found/backend_services/mypost.dart';
-import 'package:lost_n_found/screens/post_item.dart';
+import 'package:lost_n_found/items/backend_services/mypost.dart';
+import 'package:lost_n_found/items/screens/post_item.dart';
 
 class UserList extends StatefulWidget {
   const UserList({super.key});
