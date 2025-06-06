@@ -30,14 +30,14 @@ class StoreProfile extends StatefulWidget {
     super.key,
     required this.nameController,
     required this.rollnoController,
-    required this.branchController,
+    required this.branch,
     required this.year,
     required this.image,
   });
 
   final String nameController;
   final String rollnoController;
-  final String branchController;
+  final String branch;
   final String year;
   final Uint8List image;
 
@@ -66,7 +66,7 @@ class _StoreProfileState extends State<StoreProfile> {
           Map<String, String> profileToStore = {
             'Name': widget.nameController,
             'Roll no.': widget.rollnoController,
-            'Branch': widget.branchController,
+            'Branch': widget.branch,
             'Year': widget.year,
             'ProfileImageUrl': imageUrl,
           };
@@ -100,18 +100,40 @@ class _StoreProfileState extends State<StoreProfile> {
 bool isFormFilled() {
   return widget.nameController.isNotEmpty &&
       widget.rollnoController.isNotEmpty &&
-      widget.branchController.isNotEmpty &&
+      widget.branch.isNotEmpty &&
       widget.year != 'Year'; 
 }
 
 
   @override
-  Widget build(BuildContext context) {
-    return _isLoading
-        ? const CircularProgressIndicator() 
-        : FilledButton(
-          onPressed: isFormFilled() ? saveProfileDetails : null,
-          child: const Text('Save Profile'),
+Widget build(BuildContext context) {
+  return _isLoading
+      ? const Center(child: CircularProgressIndicator())
+      : SizedBox(
+          width: double.infinity,
+          child: FilledButton(
+            onPressed: isFormFilled() ? saveProfileDetails : null,
+            style: ButtonStyle(
+              backgroundColor: const WidgetStatePropertyAll<Color>(Colors.white),
+              padding: const WidgetStatePropertyAll<EdgeInsets>(
+                EdgeInsets.symmetric(vertical: 16),
+              ),
+              shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            child: const Text(
+              'Save Profile',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF007C91),
+              ),
+            ),
+          ),
         );
-  }
+}
+
 }
