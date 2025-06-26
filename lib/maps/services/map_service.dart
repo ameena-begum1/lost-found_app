@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/location_data.dart';
 
 class MapService {
@@ -17,7 +17,12 @@ class MapService {
     }).toList();
   }
 
-  Future<Map<String, Marker>> getMarkersFromLocations(List<LocationData> locations) async {
+  // Generate markers from fetched locations
+  Future<Map<String, Marker>> getMarkersFromLocations(
+    List<LocationData> locations, {
+    LocationData? highlight1,
+    LocationData? highlight2,
+  }) async {
     final Map<String, Marker> markers = {};
     for (var i = 0; i < locations.length; i++) {
       final loc = locations[i];
