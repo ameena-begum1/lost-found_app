@@ -4,7 +4,6 @@ import '../models/location_data.dart';
 
 class MapService {
   final _collection = FirebaseFirestore.instance.collection('locations');
-
   Future<List<LocationData>> fetchLocations() async {
     final snapshot = await _collection.get();
     return snapshot.docs.map((doc) {
@@ -19,6 +18,7 @@ class MapService {
 
   // Generate markers from fetched locations
   Future<Map<String, Marker>> getMarkersFromLocations(
+  
     List<LocationData> locations, {
     LocationData? highlight1,
     LocationData? highlight2,
@@ -30,7 +30,9 @@ class MapService {
         markerId: MarkerId('marker_$i'),
         position: loc.position,
         infoWindow: InfoWindow(title: loc.name),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+        // icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+        icon: BitmapDescriptor.defaultMarkerWithHue(185), // 180° is teal-ish
+
       );
     }
     return markers;
