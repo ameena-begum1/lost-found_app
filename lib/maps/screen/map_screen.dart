@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lost_n_found/maps/models/location_data.dart';
 import 'package:lost_n_found/maps/services/directions_service.dart';
@@ -22,13 +23,14 @@ class _MapScreenState extends State<MapScreen> {
   List<LocationData> _locations = [];
   LocationData? _startLocation, _endLocation;
   Polyline? _routeLine;
-  NavigationController? _navigationController;
   bool _isNavigating = false;
+  StreamSubscription<Position>? _positionStream;
 
-  static final LatLngBounds _collegeBounds = LatLngBounds( 
+  static final LatLngBounds _collegeBounds = LatLngBounds(
     southwest: LatLng(17.4265, 78.4400),
     northeast: LatLng(17.4293, 78.4460),
   );
+
   static const double _minZoom = 18.2, _maxZoom = 20.0;
   static const LatLng _collegeCenter = LatLng(17.4280, 78.4435);
   static const CameraPosition _initialCameraPosition = CameraPosition(
@@ -43,9 +45,28 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Future<void> _initPermissions() async {
-    final status = await Permission.location.request();
-    _locationPermissionGranted = status.isGranted;
+    final permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      await Geolocator.requestPermission();
+    }
+
+    if (await Geolocator.isLocationServiceEnabled()) {
+      _locationPermissionGranted = true;
+    }
+
     await _loadMarkers();
+  }
+
+  Future<LatLng?> _getCurrentLocation() async {
+    try {
+      final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best,
+      );
+      return LatLng(position.latitude, position.longitude);
+    } catch (e) {
+      print("Error getting location: $e");
+      return null;
+    }
   }
 
   Future<void> _loadMarkers() async {
@@ -56,6 +77,7 @@ class _MapScreenState extends State<MapScreen> {
       _markers.addAll(markers.map((k, v) => MapEntry(MarkerId(k), v)));
       _isLoading = false;
     });
+
     if (_mapController != null && locations.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _zoomTightlyToMarkers(locations.map((e) => e.position).toList());
@@ -92,57 +114,80 @@ class _MapScreenState extends State<MapScreen> {
       _endLocation!.position,
     );
     setState(() {
-      _routeLine =
-          pts.isNotEmpty
-              ? Polyline(
-                polylineId: PolylineId('route'),
-                color: const Color.fromARGB(255, 79, 174, 251),
-                width: 6,
-                points: pts,
-              )
-              : null;
+      _routeLine = pts.isNotEmpty
+          ? Polyline(
+              polylineId: PolylineId('route'),
+              color: Color.fromARGB(255, 79, 174, 251),
+              width: 6,
+              points: pts,
+            )
+          : null;
     });
     if (pts.isNotEmpty) _zoomTightlyToMarkers(pts);
   }
 
-  void _startNavigation() {
-    if (_routeLine == null || _mapController == null) return;
+  void _startNavigation() async {
+    if (_endLocation == null || _mapController == null) return;
 
-    // Zoom to start before animating
+    // Get current location if source is not selected
+    if (_startLocation == null) {
+      final current = await _getCurrentLocation();
+      if (current == null) return;
+      _startLocation = LocationData(
+        id: "current",
+        name: "Current Location",
+        position: current,
+      );
+    }
+
+    await _updateRoute();
+
     final start = _startLocation!.position;
+
     _mapController!.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(target: start, zoom: _maxZoom - 0.2, tilt: 45),
       ),
     );
 
-    _navigationController?.dispose();
-    _navigationController = NavigationController(
-      mapController: _mapController!,
-      routePoints: _routeLine!.points,
-      onMarkerUpdated: (m) {
-        setState(() => _markers[MarkerId('arrow_marker')] = m);
-        // camera update along the arrow
-        _updateCamera(m.position, m.rotation);
-      },
-    );
-    _navigationController!.startNavigation();
+    _positionStream?.cancel();
+    final arrowIcon = await NavigationController.getArrowIcon();
+
+    _positionStream = Geolocator.getPositionStream(
+      locationSettings: LocationSettings(
+        accuracy: LocationAccuracy.best,
+        distanceFilter: 2,
+      ),
+    ).listen((Position pos) {
+      final userLatLng = LatLng(pos.latitude, pos.longitude);
+      final heading = pos.heading;
+
+      final marker = Marker(
+        markerId: MarkerId('arrow_marker'),
+        position: userLatLng,
+        icon: arrowIcon,
+        rotation: heading,
+        flat: true,
+        anchor: Offset(0.5, 0.5),
+        zIndex: 1000,
+      );
+
+      setState(() => _markers[MarkerId('arrow_marker')] = marker);
+      _updateCamera(userLatLng, heading);
+    });
+
     setState(() => _isNavigating = true);
   }
 
   Widget _typeAhead(String label, bool isStart) {
     return TypeAheadField<LocationData>(
-      suggestionsCallback:
-          (pat) async =>
-              pat.isEmpty
-                  ? []
-                  : _locations
-                      .where(
-                        (l) => l.name.toLowerCase().contains(pat.toLowerCase()),
-                      )
-                      .toList(),
-      itemBuilder:
-          (context, suggestion) => ListTile(title: Text(suggestion.name)),
+      suggestionsCallback: (pat) async => pat.isEmpty
+          ? []
+          : _locations
+              .where((l) => l.name.toLowerCase().contains(pat.toLowerCase()))
+              .toList(),
+      itemBuilder: (context, suggestion) =>
+          ListTile(title: Text(suggestion.name)),
       onSelected: (suggestion) async {
         setState(() {
           if (isStart) {
@@ -155,26 +200,25 @@ class _MapScreenState extends State<MapScreen> {
         await _updateRoute();
       },
       emptyBuilder: (context) => SizedBox.shrink(),
-      builder:
-          (context, controller, focusNode) => TextField(
-            controller: controller,
-            focusNode: focusNode,
-            decoration: InputDecoration(
-              labelText: label,
-              filled: true,
-              fillColor: Colors.white,
-              prefixIcon: Icon(Icons.location_on, color: Colors.teal),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
+      builder: (context, controller, focusNode) => TextField(
+        controller: controller,
+        focusNode: focusNode,
+        decoration: InputDecoration(
+          labelText: label,
+          filled: true,
+          fillColor: Colors.white,
+          prefixIcon: Icon(Icons.location_on, color: Colors.teal),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
+        ),
+      ),
     );
   }
 
   @override
   void dispose() {
-    _navigationController?.dispose();
+    _positionStream?.cancel();
     super.dispose();
   }
 
@@ -197,7 +241,7 @@ class _MapScreenState extends State<MapScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
-                    _typeAhead('From', true),
+                    _typeAhead('Current Location', true),
                     const SizedBox(height: 8),
                     _typeAhead('To', false),
                   ],
@@ -205,34 +249,30 @@ class _MapScreenState extends State<MapScreen> {
               ),
               const SizedBox(height: 8),
               Expanded(
-                child:
-                    _isLoading
-                        ? Center(
-                          child: CircularProgressIndicator(
-                            color: Color(0xFF00897B),
-                          ),
-                        )
-                        : GoogleMap(
-                          initialCameraPosition: _initialCameraPosition,
-                          myLocationEnabled: _locationPermissionGranted,
-                          markers: _markers.values.toSet(),
-                          polylines: _routeLine != null ? {_routeLine!} : {},
-                          zoomControlsEnabled: true,
-                          onMapCreated: (c) async {
-                            _mapController = c;
-                            try {
-                              final style = await rootBundle.loadString(
-                                'assets/map_style.json',
-                              );
-                              _mapController?.setMapStyle(style);
-                            } catch (_) {}
-                          },
-                          onCameraMove: (pos) {
-                            if (!_isNavigating) _mapController = _mapController;
-                          },
+                child: _isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: Color(0xFF00897B),
                         ),
+                      )
+                    : GoogleMap(
+                        initialCameraPosition: _initialCameraPosition,
+                        myLocationEnabled: _locationPermissionGranted,
+                        markers: _markers.values.toSet(),
+                        polylines:
+                            _routeLine != null ? {_routeLine!} : {},
+                        zoomControlsEnabled: true,
+                        onMapCreated: (c) async {
+                          _mapController = c;
+                          try {
+                            final style = await rootBundle
+                                .loadString('assets/map_style.json');
+                            _mapController?.setMapStyle(style);
+                          } catch (_) {}
+                        },
+                      ),
               ),
-              if (_startLocation != null && _endLocation != null)
+              if (_endLocation != null)
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 12),
                   child: ElevatedButton.icon(
@@ -240,7 +280,8 @@ class _MapScreenState extends State<MapScreen> {
                     icon: Icon(Icons.navigation, color: Colors.white),
                     label: Text(
                       'Start Navigation',
-                      style: TextStyle(fontSize: 16,color: Colors.white),
+                      style:
+                          TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF00897B),
