@@ -51,6 +51,8 @@ dependencies:
   geolocator: ^14.0.1
   image_compare: ^1.1.2
   image: ^3.3.0
+  share_plus: ^11.0.0
+  material_symbols_icons: ^4.2815.1
 
 dev_dependencies:
   flutter_test:
