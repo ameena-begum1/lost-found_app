@@ -211,8 +211,8 @@ class _StoreDataState extends State<StoreData> {
   Widget build(BuildContext context) {
     return FilledButton(
       style: FilledButton.styleFrom(
-        foregroundColor: Colors.white,
-        backgroundColor: const Color(0xFF00897B),
+        foregroundColor: Colors.black,
+        backgroundColor: const Color(0xFFFFD74B), // ✅ Updated button color
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       onPressed: () async {
@@ -271,7 +271,7 @@ class _StoreDataState extends State<StoreData> {
                 context: context,
                 builder:
                     (ctx) => AlertDialog(
-                      backgroundColor:Color.fromARGB(255, 213, 255, 251) ,
+                      backgroundColor: const Color.fromARGB(255, 213, 255, 251),
                       title: const Text(
                         "FindOra Matched Item!",
                         style: TextStyle(
@@ -312,11 +312,10 @@ class _StoreDataState extends State<StoreData> {
                     ),
               );
 
-              // Show friendly quote/snackbar
               _showSnackBar(
                 "Your item matches an existing one. No need to submit again!",
               );
-              return; // Stop submission
+              return;
             }
           }
 

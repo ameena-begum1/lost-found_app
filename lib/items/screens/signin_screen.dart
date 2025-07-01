@@ -175,7 +175,6 @@
 //   }
 // }
 
-
 //UI set Rabia ==============================================================================================
 import 'package:lost_n_found/items/backend_services/signin.dart';
 import 'package:flutter/material.dart';
@@ -184,7 +183,6 @@ import 'package:lost_n_found/items/screens/forget_password.dart';
 import 'package:lost_n_found/items/widgets/gradient_container.dart';
 import 'signup_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 
 class SigninScreen extends StatefulWidget {
   @override
@@ -229,15 +227,12 @@ class _SigninScreenState extends State<SigninScreen> {
       ).showSnackBar(const SnackBar(content: Text('Incorrect login')));
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GradientContainer(
-        colors: const [
-          Color(0xFF00BFA6),
-          Color.fromARGB(255, 6, 144, 125)
-        ],
+        colors: const [Color(0xFF00BFA6), Color.fromARGB(255, 6, 144, 125)],
         child: SafeArea(
           child: Center(
             child: Padding(
@@ -248,30 +243,35 @@ class _SigninScreenState extends State<SigninScreen> {
                   child: Column(
                     children: [
                       const SizedBox(height: 30),
-                      Center(child: Image.asset('assets/images/logo.png', height: 180)),
-                      const SizedBox(height: 20),
-                      const Text(
-                        'Welcome to FindOra',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                      Center(
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          height: 350,
+                          width: 350,
                         ),
                       ),
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _emailController,
                         decoration: InputDecoration(
                           labelText: 'Email',
-                          labelStyle: TextStyle(color: const Color.fromARGB(255, 100, 100, 100)),
+                          labelStyle: TextStyle(
+                            color: const Color.fromARGB(255, 100, 100, 100),
+                          ),
                           prefixIcon: const Icon(Icons.email),
                           filled: true,
                           fillColor: const Color.fromARGB(255, 255, 255, 255),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(14.0),
-                            borderSide: const BorderSide(width:0,style: BorderStyle.none)
+                            borderSide: const BorderSide(
+                              width: 0,
+                              style: BorderStyle.none,
+                            ),
                           ),
-                          errorStyle: const TextStyle(color: Colors.white, fontSize: 14),
+                          errorStyle: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -286,13 +286,18 @@ class _SigninScreenState extends State<SigninScreen> {
                         obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'Password',
-                          labelStyle: TextStyle(color: const Color.fromARGB(255, 100, 100, 100)),
+                          labelStyle: TextStyle(
+                            color: const Color.fromARGB(255, 100, 100, 100),
+                          ),
                           prefixIcon: const Icon(Icons.lock),
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(14.0),
-                            borderSide: const BorderSide(width:0,style: BorderStyle.none)
+                            borderSide: const BorderSide(
+                              width: 0,
+                              style: BorderStyle.none,
+                            ),
                           ),
                           errorStyle: const TextStyle(color: Colors.white),
                         ),
@@ -311,17 +316,18 @@ class _SigninScreenState extends State<SigninScreen> {
                         child: TextButton(
                           onPressed: () {
                             Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                            builder: (context) => ForgotPasswordScreen(),
-                      ),
-                    );
-                  },
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ForgotPasswordScreen(),
+                              ),
+                            );
+                          },
                           child: const Text(
                             'Forgot Password?',
-                            style: TextStyle(color: Colors.white,
-                            fontWeight: FontWeight.bold,),
-                            
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -334,15 +340,20 @@ class _SigninScreenState extends State<SigninScreen> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             foregroundColor: Color(0xFF007C91),
-                            textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(14),
                             ),
-                            
                           ),
-                          child: Text('Login',style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold)),
+                          child: Text(
+                            'Login',
+                            style: GoogleFonts.poppins(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 24),

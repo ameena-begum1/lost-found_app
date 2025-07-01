@@ -3,10 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lost_n_found/items/screens/home_screen.dart';
 import 'package:lost_n_found/items/screens/signin_screen.dart';
-import 'firebase_options.dart'; 
+import 'firebase_options.dart';
+
 void main() async {
-WidgetsFlutterBinding.ensureInitialized();
-await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -15,14 +16,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner : false, 
-      home: AuthWrapper(),
-    );
+    return MaterialApp(debugShowCheckedModeBanner: false, home: AuthWrapper());
   }
 }
 
-//logic to keep the user signed in after they logged in once 
+//logic to keep the user signed in after they logged in once
 class AuthWrapper extends StatelessWidget {
   const AuthWrapper({super.key});
   @override

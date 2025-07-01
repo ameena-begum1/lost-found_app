@@ -22,9 +22,10 @@ class _NotificationsScreenState extends State<NotificationsScreen>
       duration: const Duration(milliseconds: 1000),
     )..repeat(reverse: true);
 
-    _animation = Tween<double>(begin: 0.0, end: 15.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _animation = Tween<double>(
+      begin: 0.0,
+      end: 15.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override
@@ -36,7 +37,7 @@ class _NotificationsScreenState extends State<NotificationsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF1F9F6),
+      backgroundColor: const Color(0xFFFFFCF5), // Soft cream background
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -65,17 +66,17 @@ class _NotificationsScreenState extends State<NotificationsScreen>
                 child: const Icon(
                   Icons.notifications_none,
                   size: 60,
-                  color: Color(0xFF00897B),
+                  color: Color(0xFFF9C438), // Yellow icon
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
             Text(
               "Notifications",
               style: GoogleFonts.poppins(
-                fontSize: 20,
+                fontSize: 22,
                 fontWeight: FontWeight.w600,
-                color: Colors.black87,
+                color: Colors.black,
               ),
             ),
             const SizedBox(height: 8),
@@ -83,7 +84,7 @@ class _NotificationsScreenState extends State<NotificationsScreen>
               "Feature coming soon!",
               style: GoogleFonts.poppins(
                 fontSize: 16,
-                color: Colors.teal,
+                color: Colors.grey[700], // Subtle muted tone
               ),
             ),
           ],

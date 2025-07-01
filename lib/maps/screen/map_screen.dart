@@ -143,7 +143,6 @@
 //       _endLocation!.position,
 //     );
 //   }
-  
 
 //   setState(() {
 //     _markers.clear();
@@ -161,7 +160,6 @@
 //     }
 //   });
 // }
-
 
 //   Widget _buildTypeAheadField(String label, bool isStart) {
 //     return TypeAheadField<LocationData>(
@@ -261,7 +259,6 @@
 //   }
 // }
 
-
 // // import 'dart:async';
 // // import 'dart:math' as math;
 // // import 'package:flutter/material.dart';
@@ -273,7 +270,6 @@
 // // import 'package:permission_handler/permission_handler.dart';
 // // import 'package:flutter/services.dart' show rootBundle;
 // // import 'package:flutter_typeahead/flutter_typeahead.dart';
-
 
 // // class MapScreen extends StatefulWidget {
 // //   @override
@@ -573,8 +569,6 @@
 // //   }
 // // }
 
-
-
 //UI set ==========================================================================================================
 // lib/maps/college_map_screen.dart
 import 'dart:math';
@@ -745,14 +739,20 @@ class _MapScreenState extends State<MapScreen> {
       suggestionsCallback: (pattern) async {
         if (pattern.isEmpty) return [];
         return _locations
-            .where((loc) => loc.name.toLowerCase().contains(pattern.toLowerCase()))
+            .where(
+              (loc) => loc.name.toLowerCase().contains(pattern.toLowerCase()),
+            )
             .toList();
       },
-      itemBuilder: (context, suggestion) => ListTile(
-        dense: true,
-        visualDensity: VisualDensity.compact,
-        title: Text(suggestion.name, style: GoogleFonts.poppins(fontSize: 14)),
-      ),
+      itemBuilder:
+          (context, suggestion) => ListTile(
+            dense: true,
+            visualDensity: VisualDensity.compact,
+            title: Text(
+              suggestion.name,
+              style: GoogleFonts.poppins(fontSize: 14, color: Colors.black),
+            ),
+          ),
       onSelected: (LocationData suggestion) async {
         setState(() {
           if (isStart) {
@@ -764,91 +764,144 @@ class _MapScreenState extends State<MapScreen> {
         await _updateMapWithRoute();
       },
       emptyBuilder: (context) => const SizedBox.shrink(),
-      builder: (context, controller, focusNode) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: TextField(
-          controller: controller,
-          focusNode: focusNode,
-          style: GoogleFonts.poppins(fontSize: 14),
-          decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.search, size: 18),
-            contentPadding: const EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 12,
-            ),
-            labelText: label,
-            labelStyle: GoogleFonts.poppins(fontSize: 14),
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Colors.teal),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Colors.teal),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Colors.teal, width: 1.5),
+      builder:
+          (context, controller, focusNode) => TextField(
+            controller: controller,
+            focusNode: focusNode,
+            style: GoogleFonts.poppins(fontSize: 14, color: Colors.black),
+            decoration: InputDecoration(
+              prefixIcon: const Icon(
+                Icons.search,
+                size: 18,
+                color: Colors.black,
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 12,
+              ),
+              labelText: label,
+              labelStyle: GoogleFonts.poppins(
+                fontSize: 14,
+                color: Colors.black,
+              ),
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.black12),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.black12),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.black, width: 1.5),
+              ),
             ),
           ),
-        ),
-      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF1F9F6),
-      body: Column(
-        children: [
-          const SizedBox(height: 50),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              children: [
-                _buildTypeAheadField("From", true),
-                const SizedBox(height: 4),
-                _buildTypeAheadField("To", false),
-              ],
-            ),
-          ),
-          const SizedBox(height: 10),
-          Expanded(
-            child: _isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : ClipRRect(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-                    child: GoogleMap(
-                      initialCameraPosition: _initialCameraPosition,
-                      markers: Set<Marker>.of(_markers.values),
-                      polylines: _routeLine != null ? {_routeLine!} : {},
-                      myLocationEnabled: _locationPermissionGranted,
-                      zoomControlsEnabled: true,
-                      mapType: MapType.normal,
-                      cameraTargetBounds: CameraTargetBounds(_collegeBounds),
-                      onMapCreated: (controller) async {
-                        _mapController = controller;
-                        try {
-                          final style = await rootBundle.loadString('assets/map_style.json');
-                          _mapController?.setMapStyle(style);
-                        } catch (_) {
-                          print("No map style found, continuing.");
-                        }
-                        if (_markers.isNotEmpty) {
-                          _zoomTightlyToMarkers(
-                            _markers.values.map((m) => m.position).toList(),
-                          );
-                        }
-                      },
-                      onCameraMove: _enforceZoomLimits,
-                      onCameraIdle: _checkMapCenter,
+      backgroundColor: const Color(0xFFFFFCF5),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 12,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Search Route",
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-          ),
-        ],
+                  const SizedBox(height: 16),
+                  _buildTypeAheadField("From", true),
+                  const SizedBox(height: 8),
+                  _buildTypeAheadField("To", false),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton.icon(
+                      onPressed:
+                          _startLocation != null && _endLocation != null
+                              ? _updateMapWithRoute
+                              : null,
+                      icon: const Icon(Icons.search, color: Colors.black),
+                      label: Text(
+                        "Search Route",
+                        style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFF9C438),
+                        disabledBackgroundColor: const Color(
+                          0xFFF9C438,
+                        ).withOpacity(0.4),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Expanded(
+              child:
+                  _isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(20),
+                        ),
+                        child: GoogleMap(
+                          initialCameraPosition: _initialCameraPosition,
+                          markers: Set<Marker>.of(_markers.values),
+                          polylines: _routeLine != null ? {_routeLine!} : {},
+                          myLocationEnabled: _locationPermissionGranted,
+                          zoomControlsEnabled: true,
+                          mapType: MapType.normal,
+                          cameraTargetBounds: CameraTargetBounds(
+                            _collegeBounds,
+                          ),
+                          onMapCreated: (controller) async {
+                            _mapController = controller;
+                            try {
+                              final style = await rootBundle.loadString(
+                                'assets/map_style.json',
+                              );
+                              _mapController?.setMapStyle(style);
+                            } catch (_) {
+                              print("No map style found, continuing.");
+                            }
+                            if (_markers.isNotEmpty) {
+                              _zoomTightlyToMarkers(
+                                _markers.values.map((m) => m.position).toList(),
+                              );
+                            }
+                          },
+                          onCameraMove: _enforceZoomLimits,
+                          onCameraIdle: _checkMapCenter,
+                        ),
+                      ),
+            ),
+          ],
+        ),
       ),
     );
   }

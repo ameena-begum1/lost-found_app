@@ -39,7 +39,6 @@
 //   );
 // }
 
-
 //UI set ====================================================================================
 import 'package:flutter/material.dart';
 import 'package:lost_n_found/maps/screen/map_screen.dart';
@@ -58,10 +57,16 @@ BottomNavigationBar navBar(
   return BottomNavigationBar(
     currentIndex: currentIndex,
     backgroundColor: Colors.white,
-    selectedItemColor: const Color(0xFF00897B),
-    unselectedItemColor: Colors.grey,
-    selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
-    unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w400),
+    selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+    unselectedItemColor: const Color.fromARGB(137, 46, 45, 45),
+    selectedLabelStyle: const TextStyle(
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Poppins',
+    ),
+    unselectedLabelStyle: const TextStyle(
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Poppins',
+    ),
     type: BottomNavigationBarType.fixed,
     elevation: 10,
     onTap: (index) {
@@ -82,28 +87,27 @@ BottomNavigationBar navBar(
           context,
           MaterialPageRoute(builder: (context) => MapScreen()),
         );
-      }
-      else {
-         Navigator.push(
+      } else {
+        Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ParkingScreen()),
         );
       }
     },
     items: const [
+      BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
       BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: 'Home',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.add_circle),
+        icon: Icon(Icons.add_circle_outline),
         label: 'Post Item',
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.location_pin),
+        icon: Icon(Icons.location_on_outlined),
         label: 'Maps',
       ),
-      BottomNavigationBarItem(icon: Icon(Icons.local_parking),label: 'Parking')
+      BottomNavigationBarItem(
+        icon: Icon(Icons.local_parking_outlined),
+        label: 'Parking',
+      ),
     ],
   );
 }

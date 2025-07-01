@@ -178,7 +178,6 @@
 //   }
 // }
 
-
 //UI set
 // DrawerScreen styled with Canva-like premium UI 💙✨
 import 'package:flutter/material.dart';
@@ -207,25 +206,25 @@ class _DrawerScreenState extends State<DrawerScreen> {
       children: [
         Container(
           width: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF00897B),Color(0xFF00897B)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+          color: const Color(0xFFFFFCF5), // creamy off-white
+          padding: const EdgeInsets.only(
+            top: 60,
+            left: 20,
+            bottom: 40,
+            right: 20,
           ),
-          padding: const EdgeInsets.only(top: 60, left: 20, bottom: 50, right: 20),
           child: StreamBuilder<DocumentSnapshot>(
             stream: _profile.getUserProfileStream(user.uid),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
-                  child: CircularProgressIndicator(color: Colors.white),
+                  child: CircularProgressIndicator(color: Colors.black),
                 );
               }
 
               var profileData = snapshot.data?.data() as Map<String, dynamic>?;
-              bool hasProfileData = profileData != null && profileData.isNotEmpty;
+              bool hasProfileData =
+                  profileData != null && profileData.isNotEmpty;
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -245,25 +244,33 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       ),
                       builder: (context, snap) {
                         if (snap.connectionState == ConnectionState.done &&
-                            profileData?['ProfileImageUrl']?.isNotEmpty == true) {
+                            profileData?['ProfileImageUrl']?.isNotEmpty ==
+                                true) {
                           return CircleAvatar(
                             radius: 50,
-                            backgroundImage: NetworkImage(profileData!['ProfileImageUrl']),
+                            backgroundImage: NetworkImage(
+                              profileData!['ProfileImageUrl'],
+                            ),
                           );
-                        } else if (snap.connectionState == ConnectionState.waiting) {
+                        } else if (snap.connectionState ==
+                            ConnectionState.waiting) {
                           return const CircleAvatar(
                             radius: 32,
-                            backgroundColor: Colors.white24,
+                            backgroundColor: Colors.black12,
                             child: CircularProgressIndicator(
-                              color: Colors.white,
+                              color: Colors.black,
                               strokeWidth: 2,
                             ),
                           );
                         } else {
                           return const CircleAvatar(
                             radius: 32,
-                            backgroundColor: Colors.white24,
-                            child: Icon(Icons.person, size: 32, color: Colors.white),
+                            backgroundColor: Colors.black12,
+                            child: Icon(
+                              Icons.person,
+                              size: 32,
+                              color: Colors.black,
+                            ),
                           );
                         }
                       },
@@ -273,7 +280,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   Text(
                     hasProfileData ? profileData['Name'] : 'Unknown',
                     style: GoogleFonts.poppins(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
@@ -284,7 +291,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         ? "${profileData['Branch']} | ${profileData['Year']} | ${profileData['Roll no.']}"
                         : 'Not Available',
                     style: GoogleFonts.poppins(
-                      color: Colors.white70,
+                      color: Colors.black87,
                       fontSize: 14,
                     ),
                   ),
@@ -295,17 +302,18 @@ class _DrawerScreenState extends State<DrawerScreen> {
         ),
         Expanded(
           child: Container(
-            color: const Color(0xFFF1F9F6),
+            color: const Color(0xFFFFFCF5), // matches rest of background
             child: ListView(
               padding: const EdgeInsets.symmetric(vertical: 16),
               children: [
                 _buildListTile(
                   icon: Icons.list_alt_outlined,
                   label: 'My Posted Items',
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const UserList()),
-                  ),
+                  onTap:
+                      () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const UserList()),
+                      ),
                 ),
                 _buildListTile(
                   icon: Icons.notifications_none,
@@ -359,10 +367,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
       child: ListTile(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         tileColor: Colors.white,
-        leading: Icon(icon, color: iconColor ?? const Color(0xFF00BFA5)),
+        leading: Icon(
+          icon,
+          color: iconColor ?? const Color(0xFFF9C438),
+        ), // yellow
         title: Text(
           label,
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
+          ),
         ),
         onTap: onTap,
         trailing: const Icon(Icons.chevron_right, color: Colors.grey),

@@ -174,8 +174,6 @@
 //   }
 // }
 
-
-
 //UI set ==========================================================================================================
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -242,7 +240,7 @@ class _PostItemState extends State<PostItem> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.teal.shade200),
+        border: Border.all(color: Colors.grey.shade300), // Changed from teal
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
@@ -255,11 +253,15 @@ class _PostItemState extends State<PostItem> {
         value: value,
         decoration: const InputDecoration(border: InputBorder.none),
         icon: const Icon(Icons.keyboard_arrow_down),
-        style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+        ),
         onChanged: onChanged,
-        items: items
-            .map((item) => DropdownMenuItem(value: item, child: Text(item)))
-            .toList(),
+        items:
+            items
+                .map((item) => DropdownMenuItem(value: item, child: Text(item)))
+                .toList(),
       ),
     );
   }
@@ -295,11 +297,14 @@ class _PostItemState extends State<PostItem> {
           hintText: hint,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.teal.shade200),
+            borderSide: BorderSide(color: Colors.grey.shade300), // light gray
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.teal, width: 1.5),
+            borderSide: const BorderSide(
+              color: Color(0xFFFFB300),
+              width: 1.5,
+            ), // yellow focus
           ),
         ),
       ),
@@ -309,15 +314,15 @@ class _PostItemState extends State<PostItem> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFE9F8F3), // pastel green
+      backgroundColor: const Color(0xFFFFFDF8), // Yellowish off-white
       appBar: AppBar(
-        backgroundColor: const Color(0xFF00897B), // teal
+        backgroundColor: const Color(0xFFFFD74B), // Yellow
         elevation: 0,
         title: const Text(
           "Post Item",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
         ),
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -328,10 +333,7 @@ class _PostItemState extends State<PostItem> {
               existingImageUrl: imageUrl,
             ),
             const SizedBox(height: 24),
-            customTextField(
-              controller: _titleController,
-              label: "Item Title",
-            ),
+            customTextField(controller: _titleController, label: "Item Title"),
             const SizedBox(height: 20),
             Row(
               children: [
@@ -380,15 +382,15 @@ class _PostItemState extends State<PostItem> {
             const SizedBox(height: 30),
             Center(
               child: StoreData(
-                  titleController: _titleController,
-                  status: selectedStatus!,
-                  category: selectedCategory!,
-                  discriptionController: _discriptionController,
-                  imageUrl: imageUrl,
-                  mobilenoController: _mobilenoController,
-                  location: _location,
-                ),
+                titleController: _titleController,
+                status: selectedStatus!,
+                category: selectedCategory!,
+                discriptionController: _discriptionController,
+                imageUrl: imageUrl,
+                mobilenoController: _mobilenoController,
+                location: _location,
               ),
+            ),
           ],
         ),
       ),

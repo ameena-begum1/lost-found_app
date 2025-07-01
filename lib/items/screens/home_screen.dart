@@ -287,8 +287,9 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: const Color(0xFFF1F9F6),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xFF00897B),
-        elevation: 0,
+        backgroundColor: Colors.transparent, // ❌ Removed yellow background
+        elevation: 0, // removes shadow
+
         title: StreamBuilder<DocumentSnapshot>(
           stream: _fetchUserProfile.getUserProfileStream(currentUser!.uid),
           builder: (context, snapshot) {
@@ -297,7 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
               return Text(
                 'Hello👋 ${data['Name']}',
                 style: GoogleFonts.poppins(
-                  color: Colors.white,
+                  color: Colors.black, // ✅ Changed text to black
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -305,26 +306,30 @@ class _HomeScreenState extends State<HomeScreen> {
             } else {
               return Text(
                 'Unknown',
-                style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                style: GoogleFonts.poppins(color: Colors.black, fontSize: 18),
               );
             }
           },
         ),
-       actions: [
-  Padding(
-    padding: const EdgeInsets.only(right: 12.0),
-    child: GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const NotificationsScreen()),
-        );
-      },
-      child: const Icon(Icons.notifications_none, color: Colors.white),
-    ),
-  ),
-],
-
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const NotificationsScreen(),
+                  ),
+                );
+              },
+              child: const Icon(
+                Icons.notifications_none,
+                color: Colors.black,
+              ), // changed to black to match theme
+            ),
+          ),
+        ],
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
@@ -395,21 +400,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),
                   borderSide: const BorderSide(
-                    color: Color(0xFF00BFA5), // Teal outline
+                    color: Color(0xFFFFD54F),
                     width: 1.5,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),
                   borderSide: const BorderSide(
-                    color: Color(0xFF007C91), // Darker Teal when focused
+                    color: Color(0xFFFFD54F),
                     width: 2.0,
                   ),
                 ),
               ),
             ),
           ),
-
           const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -423,7 +427,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
                             isSelected
-                                ? const Color(0xFF00897B)
+                                ? const Color(0xFFFFD54F)
                                 : Colors.grey[300],
                         foregroundColor:
                             isSelected ? Colors.white : Colors.black,
@@ -469,7 +473,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       selectedCategory = category;
                     });
                   },
-                  selectedColor: const Color.fromARGB(255, 57, 159, 170),
+                  selectedColor: const Color(0xFFFFD54F),
                   backgroundColor: Colors.grey.shade200,
                   labelStyle: TextStyle(
                     color: isSelected ? Colors.white : Colors.black,
@@ -484,7 +488,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: navBar(context, _scaffoldKey),
       drawer: const Drawer(
         shape: BeveledRectangleBorder(),
-        backgroundColor: Color(0xFF007C91),
+        backgroundColor: Color(0xFFFFD54F),
         child: DrawerScreen(),
       ),
     );
