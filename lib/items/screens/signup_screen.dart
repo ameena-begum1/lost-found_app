@@ -99,13 +99,7 @@ class _SignUpScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GradientContainer(
-        colors: const [
-          Color(0xFF00BFA6),
-          Color.fromARGB(255, 6, 144, 125),
-        ],
-      
-      child: Stack(
+      body: Stack(
           children: [
             Center(
               child: Padding(
@@ -122,15 +116,15 @@ class _SignUpScreenState extends State<SignupScreen> {
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 0, 0, 0),
                           ),
                         ),
                         const SizedBox(height: 12),
                         const Text(
-                          'Join Lost & Found Today',
+                          'Join FindOra Today',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.white70,
+                            color: Color.fromARGB(179, 0, 0, 0),
                             fontSize: 16,
                           ),
                         ),
@@ -169,8 +163,8 @@ class _SignUpScreenState extends State<SignupScreen> {
                   child: ElevatedButton(
                     onPressed: _signUp,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                      foregroundColor: const Color(0xFF00BFA6),
+                      backgroundColor: const Color(0XFFFFD54F),
+                      foregroundColor: const Color.fromARGB(255, 0, 0, 0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                       ),
@@ -202,7 +196,7 @@ class _SignUpScreenState extends State<SignupScreen> {
                         child: const Text(
                           'Login',
                             style: TextStyle(
-                              color: Color.fromARGB(255, 255, 255, 255),
+                              color: Color.fromARGB(255, 0, 0, 0),
                               fontWeight: FontWeight.bold,
                                   ),
                                  ),
@@ -216,8 +210,7 @@ class _SignUpScreenState extends State<SignupScreen> {
                        ),
                       )
                     ]
-                    ),
-                  )
+                    )
                 );
     
   }
@@ -235,10 +228,11 @@ class _SignUpScreenState extends State<SignupScreen> {
         prefixIcon: Icon(icon),
         filled: true,
         fillColor: Colors.white,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(width:0,style: BorderStyle.none)
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14.0),
+          borderSide: const BorderSide(color: Colors.grey),
         ),
-        errorStyle: const TextStyle(color: Colors.white, fontSize: 14),
+        errorStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontSize: 14),
       ),
     );
   }
@@ -262,10 +256,11 @@ class _SignUpScreenState extends State<SignupScreen> {
         ),
         filled: true,
         fillColor: Colors.white,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(14),
-        borderSide: const BorderSide(width:0,style: BorderStyle.none),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14.0),
+          borderSide: const BorderSide(color: Colors.grey),
         ),
-        errorStyle: const TextStyle(color: Colors.white),
+        errorStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
       ),
     );
   }

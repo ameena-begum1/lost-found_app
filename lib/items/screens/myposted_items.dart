@@ -17,13 +17,13 @@ class _UserListState extends State<UserList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF1F9F6),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: const Color(0xFF00897B),
+        iconTheme: const IconThemeData(color: Colors.black),
+        backgroundColor: const Color(0xFFFFD54F),
         title: Text(
           'My Posted Items',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
         ),
       ),
       body: Center(
@@ -34,7 +34,7 @@ class _UserListState extends State<UserList> {
               return Center(
                 child: Text(
                   'Error in fetching the data: ${snapshot.error}',
-                  style: GoogleFonts.poppins(color: const Color(0xFF00897B)),
+                  style: GoogleFonts.poppins(color: const Color(0xFFFFD54F)),
                 ),
               );
             } else if (snapshot.hasData) {
@@ -68,7 +68,7 @@ class _UserListState extends State<UserList> {
                         icon: const Icon(Icons.add,color: Colors.white,),
                         label: const Text("Post Item"),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF00897B),
+                          backgroundColor: const Color(0xFFFFD54F),
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                           textStyle: GoogleFonts.poppins(fontWeight: FontWeight.w500),

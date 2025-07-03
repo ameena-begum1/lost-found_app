@@ -36,7 +36,7 @@ class _NotificationsScreenState extends State<NotificationsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF1F9F6),
+      backgroundColor: const Color.fromARGB(255, 254, 253, 250),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +65,7 @@ class _NotificationsScreenState extends State<NotificationsScreen>
                 child: const Icon(
                   Icons.notifications_none,
                   size: 60,
-                  color: Color(0xFF00897B),
+                  color: Color(0xFFFFD54F),
                 ),
               ),
             ),
@@ -83,7 +83,7 @@ class _NotificationsScreenState extends State<NotificationsScreen>
               "Feature coming soon!",
               style: GoogleFonts.poppins(
                 fontSize: 16,
-                color: Colors.teal,
+                color: Colors.yellow,
               ),
             ),
           ],

@@ -170,11 +170,11 @@ class _ItemListState extends State<ItemList> {
               child: Icon(
                 Icons.sentiment_dissatisfied_rounded,
                 size: 60,
-                color: Color(0xFF00897B),
+                color: Color(0xFFFFD54F),
                 shadows: [
                   Shadow(
                     blurRadius: 4,
-                    color: Colors.teal.withOpacity(0.4),
+                    color: Colors.yellow.withOpacity(0.4),
                     // offset: Offset(2, 3),
                   ),
                 ],

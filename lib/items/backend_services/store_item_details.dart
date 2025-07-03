@@ -212,7 +212,7 @@ class _StoreDataState extends State<StoreData> {
     return FilledButton(
       style: FilledButton.styleFrom(
         foregroundColor: Colors.white,
-        backgroundColor: const Color(0xFF00897B),
+        backgroundColor: const Color(0xFFFFD54F),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       onPressed: () async {
@@ -275,7 +275,7 @@ class _StoreDataState extends State<StoreData> {
                       title: const Text(
                         "FindOra Matched Item!",
                         style: TextStyle(
-                          color: Color(0xFF00897B),
+                          color: Color(0xFFFFD54F),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -305,7 +305,7 @@ class _StoreDataState extends State<StoreData> {
                           onPressed: () => Navigator.pop(ctx),
                           child: const Text(
                             "OK",
-                            style: TextStyle(color: Color(0xFF00897B)),
+                            style: TextStyle(color: Color(0xFFFFD54F)),
                           ),
                         ),
                       ],
@@ -343,7 +343,7 @@ class _StoreDataState extends State<StoreData> {
           _showSnackBar('Failed to submit. Please try again.');
         }
       },
-      child: const Text('Submit'),
+      child: const Text('Submit',style: TextStyle(color: Colors.black),),
     );
   }
 }

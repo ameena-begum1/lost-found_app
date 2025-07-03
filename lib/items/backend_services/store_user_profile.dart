@@ -118,7 +118,7 @@ Widget build(BuildContext context) {
           child: FilledButton(
             onPressed: isFormFilled() ? saveProfileDetails : null,
             style: ButtonStyle(
-              backgroundColor: const WidgetStatePropertyAll<Color>(Colors.white),
+              backgroundColor: const WidgetStatePropertyAll<Color>(Color(0xFFFFD54F)),
               padding: const WidgetStatePropertyAll<EdgeInsets>(
                 EdgeInsets.symmetric(vertical: 16),
               ),
@@ -133,7 +133,7 @@ Widget build(BuildContext context) {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF007C91),
+                color: Colors.white,
               ),
             ),
           ),

@@ -207,7 +207,7 @@ class _MapScreenState extends State<MapScreen> {
           labelText: label,
           filled: true,
           fillColor: Colors.white,
-          prefixIcon: Icon(Icons.location_on, color: Colors.teal),
+          prefixIcon: Icon(Icons.location_on, color: Colors.yellow),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -226,9 +226,9 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext ctx) {
     return Theme(
       data: ThemeData(
-        primaryColor: Color(0xFF00897B),
+        primaryColor: Color(0xFFFFD54F),
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Color(0xFF00897B),
+          primary: Color(0xFFFFD54F),
         ),
         scaffoldBackgroundColor: Colors.grey[50],
       ),
@@ -252,7 +252,7 @@ class _MapScreenState extends State<MapScreen> {
                 child: _isLoading
                     ? Center(
                         child: CircularProgressIndicator(
-                          color: Color(0xFF00897B),
+                          color: Color(0xFFFFD54F),
                         ),
                       )
                     : GoogleMap(
@@ -277,14 +277,14 @@ class _MapScreenState extends State<MapScreen> {
                   padding: EdgeInsets.symmetric(vertical: 12),
                   child: ElevatedButton.icon(
                     onPressed: _isNavigating ? null : _startNavigation,
-                    icon: Icon(Icons.navigation, color: Colors.white),
+                    icon: Icon(Icons.navigation, color: const Color.fromARGB(255, 0, 0, 0)),
                     label: Text(
                       'Start Navigation',
                       style:
-                          TextStyle(fontSize: 16, color: Colors.white),
+                          TextStyle(fontSize: 16, color: Colors.black),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF00897B),
+                      backgroundColor: Color(0xFFFFD54F),
                       padding: EdgeInsets.symmetric(
                         horizontal: 24,
                         vertical: 14,

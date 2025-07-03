@@ -54,147 +54,145 @@ class _SigninScreenState extends State<SigninScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GradientContainer(
-        colors: const [
-          Color(0xFF00BFA6),
-          Color.fromARGB(255, 6, 144, 125)
-        ],
-        child: SafeArea(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 30),
-                      Center(child: Image.asset('assets/images/logo.png', height: 180)),
-                      const SizedBox(height: 20),
-                      const Text(
-                        'Welcome to FindOra',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 30),
+                    Center(child: Image.asset('assets/images/LOGO.png', height: 300, width: 300,)),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        labelStyle: TextStyle(color: const Color.fromARGB(255, 100, 100, 100),
+                        fontSize: 20),
+                        floatingLabelStyle: const TextStyle(
+                          color: Colors.black87,
+                          fontSize: 20,
+                          backgroundColor: Color.fromARGB(255, 255, 255, 255), 
+                        ),
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        prefixIcon: const Icon(Icons.email),
+                        filled: true,
+                        fillColor: const Color.fromARGB(255, 255, 255, 255),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(14.0),
+                          borderSide: const BorderSide(color: Colors.grey),
+                      ),
+                        errorStyle: const TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your email-id';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _passwordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        labelStyle: TextStyle(color: const Color.fromARGB(255, 100, 100, 100),fontSize: 20),
+                        floatingLabelStyle: const TextStyle(
+                          color: Colors.black87,
+                          fontSize: 20,
+                          backgroundColor: Colors.white, 
+                        ),
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        prefixIcon: const Icon(Icons.lock),
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(14.0),
+                          borderSide: const BorderSide(color: Colors.grey),
+                      ),
+                        errorStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        } else if (value.length < 6) {
+                          return 'Password must be at least 6 characters';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 4),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                          builder: (context) => ForgotPasswordScreen(),
+                    ),
+                  );
+                },
+                        child: const Text(
+                          'Forgot Password?',
+                          style: TextStyle(color: Color.fromARGB(255, 0, 0, 0),
+                          fontWeight: FontWeight.bold,),
+                          
                         ),
                       ),
-                      const SizedBox(height: 32),
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          labelStyle: TextStyle(color: const Color.fromARGB(255, 100, 100, 100)),
-                          prefixIcon: const Icon(Icons.email),
-                          filled: true,
-                          fillColor: const Color.fromARGB(255, 255, 255, 255),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14.0),
-                            borderSide: const BorderSide(width:0,style: BorderStyle.none)
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: _login,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0XFFFFD54F),
+                          foregroundColor: Color.fromARGB(255, 0, 0, 0),
+                          textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
                           ),
-                          errorStyle: const TextStyle(color: Colors.white, fontSize: 14),
+                          
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your email-id';
-                          }
-                          return null;
-                        },
+                        child: Text('Login',style: GoogleFonts.poppins(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold)),
                       ),
-                      const SizedBox(height: 16),
-                      TextFormField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          labelStyle: TextStyle(color: const Color.fromARGB(255, 100, 100, 100)),
-                          prefixIcon: const Icon(Icons.lock),
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14.0),
-                            borderSide: const BorderSide(width:0,style: BorderStyle.none)
-                          ),
-                          errorStyle: const TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(height: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Don't have an account?",
+                          style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
-                          } else if (value.length < 6) {
-                            return 'Password must be at least 6 characters';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 4),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
+                        TextButton(
                           onPressed: () {
                             Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                            builder: (context) => ForgotPasswordScreen(),
-                      ),
-                    );
-                  },
-                          child: const Text(
-                            'Forgot Password?',
-                            style: TextStyle(color: Colors.white,
-                            fontWeight: FontWeight.bold,),
-                            
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: _login,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: Color(0xFF007C91),
-                            textStyle: const TextStyle(fontWeight: FontWeight.bold),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            
-                          ),
-                          child: Text('Login',style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold)),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "Don't have an account?",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const SignupScreen(),
-                                ),
-                              );
-                            },
-                            child: const Text(
-                              'Create Account',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SignupScreen(),
                               ),
+                            );
+                          },
+                          child: const Text(
+                            'Create Account',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0),
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
