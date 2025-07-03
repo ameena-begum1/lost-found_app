@@ -31,7 +31,7 @@ class MapService {
         position: loc.position,
         infoWindow: InfoWindow(title: loc.name),
         // icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
-        icon: BitmapDescriptor.defaultMarkerWithHue(185), // 180° is teal-ish
+        icon: BitmapDescriptor.defaultMarkerWithHue(60), // 180° is teal-ish
 
       );
     }

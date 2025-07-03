@@ -15,7 +15,7 @@ class ParkingDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           tooltip: 'Back to Home',
           onPressed: () {
             Navigator.pop(context);
@@ -23,18 +23,18 @@ class ParkingDetailScreen extends StatelessWidget {
         ),
         title: Text(spot['name'],),
         titleTextStyle: TextStyle(
-          color: Colors.white,
+          color: Colors.black,
           fontSize: 20,
           fontWeight: FontWeight.bold
         ),
-        backgroundColor: Colors.teal,
+        backgroundColor: Color(0xFFFFD54F),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, size: 60, color: Colors.teal),
+            Icon(icon, size: 60, color: Colors.black),
             const SizedBox(height: 20),
             Text(
               'Type: ${spot['vehicle']}',
@@ -70,10 +70,10 @@ class ParkingDetailScreen extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: () {
               },
-              icon: const Icon(Icons.map,color: Colors.white,),
-              label: const Text('View on Map (Coming Soon)'),
+              icon: const Icon(Icons.map,color: Colors.black,),
+              label: const Text('View on Map (Coming Soon)',style: TextStyle(color: Colors.black),),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.teal,
+                backgroundColor: Color(0xFFFFD54F),
                 foregroundColor: Colors.white,
                 minimumSize: const Size.fromHeight(50),
               ),

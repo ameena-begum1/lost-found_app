@@ -42,19 +42,19 @@ class ParkingScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           tooltip: 'Back to Home',
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: const Text("SUES Parking Availability",style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),),
+        title: const Text("SUES Parking Availability",style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),),
         titleTextStyle: const TextStyle(
           color: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
-        backgroundColor: const Color(0xFF00897B),
+        backgroundColor: const Color(0xFFFFD54F),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(12),
@@ -66,7 +66,7 @@ class ParkingScreen extends StatelessWidget {
               ? Icons.directions_car
               : Icons.two_wheeler;
           final Color cardColor = isAvailable
-              ? Colors.green.shade50
+              ? const Color.fromARGB(255, 255, 254, 247)
               : Colors.red.shade50;
 
           return GestureDetector(
@@ -90,7 +90,7 @@ class ParkingScreen extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: Row(
                   children: [
-                    Icon(icon, size: 32, color: Colors.teal),
+                    Icon(icon, size: 32, color: Colors.yellow),
                     const SizedBox(width: 16),
                     Expanded(
                       child: Column(

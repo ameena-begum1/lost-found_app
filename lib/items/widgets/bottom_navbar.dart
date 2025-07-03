@@ -58,7 +58,7 @@ BottomNavigationBar navBar(
   return BottomNavigationBar(
     currentIndex: currentIndex,
     backgroundColor: Colors.white,
-    selectedItemColor: const Color(0xFF00897B),
+    selectedItemColor: const Color(0xFFFFD54F),
     unselectedItemColor: Colors.grey,
     selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
     unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w400),

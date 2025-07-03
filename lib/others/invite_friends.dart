@@ -28,12 +28,12 @@ Find. Reclaim. Navigate.
     return Scaffold(
       backgroundColor: const Color(0xFFF1F9F6),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF00897B),
+        backgroundColor: const Color(0xFFFFD54F),
         title: Text(
           "Invite Friends",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
         ),
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 2,
       ),
       body: Center(
@@ -54,7 +54,7 @@ Find. Reclaim. Navigate.
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.share, color: Color(0xFF00BFA5), size: 48),
+              Icon(Icons.share, color: Color(0xFFFFD54F), size: 48),
               const SizedBox(height: 16),
               Text(
                 'Share FindOra with your friends!',
@@ -62,7 +62,7 @@ Find. Reclaim. Navigate.
                 style: GoogleFonts.poppins(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFF00897B),
+                  color:  Colors.black,
                 ),
               ),
               const SizedBox(height: 20),
@@ -74,7 +74,7 @@ Find. Reclaim. Navigate.
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF00BFA5),
+                  backgroundColor: const Color(0xFFFFD54F),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
                   shape: RoundedRectangleBorder(

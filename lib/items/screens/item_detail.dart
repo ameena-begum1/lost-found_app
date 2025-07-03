@@ -32,11 +32,11 @@ class ItemDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF1F9F6),
+      backgroundColor:  Colors.white,
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: const Color(0xFF00897B),
-        title: Text("Item Details", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),),
+        iconTheme: const IconThemeData(color: Colors.black),
+        backgroundColor: const Color(0xFFFFD54F),
+        title: Text("Item Details", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),),
       ),
       body: FutureBuilder<DocumentSnapshot>(
         future: _futureData,
@@ -179,7 +179,7 @@ class ItemDetailScreen extends StatelessWidget {
                             icon: const Icon(Icons.message,color: Colors.white,),
                             label: const Text('Contact'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF00897B),
+                              backgroundColor: const Color(0xFFFFD54F),
                               foregroundColor: Colors.white,
                               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                               textStyle: GoogleFonts.poppins(fontWeight: FontWeight.w500),

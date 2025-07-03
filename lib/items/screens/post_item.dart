@@ -63,7 +63,7 @@ class _PostItemState extends State<PostItem> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.teal.shade200),
+        border: Border.all(color: Colors.yellow.shade200),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
@@ -116,11 +116,11 @@ class _PostItemState extends State<PostItem> {
           hintText: hint,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.teal.shade200),
+            borderSide: BorderSide(color: Colors.yellow.shade200),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.teal, width: 1.5),
+            borderSide: const BorderSide(color: Colors.yellow, width: 1.5),
           ),
         ),
       ),
@@ -130,15 +130,15 @@ class _PostItemState extends State<PostItem> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFE9F8F3), // pastel green
+      backgroundColor:  const Color.fromARGB(255, 255, 255, 243), 
       appBar: AppBar(
-        backgroundColor: const Color(0xFF00897B), // teal
+        backgroundColor: const Color(0xFFFFD54F), 
         elevation: 0,
         title: const Text(
           "Post Item",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
         ),
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),

@@ -28,7 +28,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
           width: double.infinity,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF00897B), Color(0xFF00897B)],
+              colors: [Color(0xFFFFD54F), Color(0xFFFFD54F)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -106,7 +106,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   Text(
                     hasProfileData ? profileData['Name'] : 'Unknown',
                     style: GoogleFonts.poppins(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
@@ -115,7 +115,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   Text(
                     hasProfileData ? profileData['Institution'] : 'Unknown',
                     style: GoogleFonts.poppins(
-                      color: Colors.white70,
+                      color: Colors.black87,
                       fontSize: 12,
                     ),
                   ),
@@ -125,7 +125,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         ? "${profileData['Branch']} | ${profileData['Year']} | ${profileData['Roll no.']}"
                         : 'Not Available',
                     style: GoogleFonts.poppins(
-                      color: Colors.white70,
+                      color: Colors.black87,
                       fontSize: 14,
                     ),
                   ),
@@ -215,7 +215,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       child: ListTile(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         tileColor: Colors.white,
-        leading: Icon(icon, color: iconColor ?? const Color(0xFF00BFA5)),
+        leading: Icon(icon, color: iconColor ?? const Color(0xFFFFD54F)),
         title: Text(
           label,
           style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
